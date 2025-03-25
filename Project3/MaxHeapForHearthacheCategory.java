@@ -1,17 +1,17 @@
 import java.util.ArrayList;
 
-public class BinaryHeapForHearthacheCategory {
+public class MaxHeapForHearthacheCategory {
     private ArrayList<Song> array;
     private int size;
 
 
-    BinaryHeapForHearthacheCategory(){
+    MaxHeapForHearthacheCategory(){
         size = 0;
         array = new ArrayList<Song>();
         array.add(null);
     }
 
-    BinaryHeapForHearthacheCategory(Song[] items){
+    MaxHeapForHearthacheCategory(Song[] items){
         array = new ArrayList<Song>();
         array.add(null);
         for (Song item : items) {
@@ -21,16 +21,18 @@ public class BinaryHeapForHearthacheCategory {
         buildHeap();
     }
 
-    public void insert(Song value) {
+    public void insert(Song song) {
         size++;
-        array.add(value);
+        array.add(song);
         int hole = size;
-        while(hole > 1 && value.heartacheScore > array.get(hole/2).heartacheScore) {
+        while(hole > 1 && song.heartacheScore > array.get(hole/2).heartacheScore) {
             Song parent = array.get(hole/2);
-            array.set(hole / 2, value);
+            array.set(hole / 2, song);
             array.set(hole, parent);
             hole = hole / 2;
         }
+
+        //System.out.println("Added to hearthache waiting: " + song);
     }
 
     public Song peek() {
@@ -76,17 +78,6 @@ public class BinaryHeapForHearthacheCategory {
         array.set(hole, temp);
     }
 
-//    public static void main( String [ ] args )
-//    {
-//        Song[] nums = {new Song(1,"aa",1,1,1,1),new Song(1,"aa",1,2,1,1)};
-//        BinaryHeapForHearthacheCategory binaryHeap = new BinaryHeapForHearthacheCategory(nums);
-//
-//        for(int i = 20; i > 0; i--) {
-//            //binaryHeap.insert(i);
-//        }
-//        while(binaryHeap.size() > 0) {
-//            System.out.println(binaryHeap.pop());
-//        }
-//    }
+
 
 }

@@ -3,14 +3,14 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class MainReadFiles {
+public class Project3 {
 
     public static void main(String[] args) throws FileNotFoundException {
 
         BlendCategoriesAndLists blend = new BlendCategoriesAndLists();
 
-        String songsTextFilePath = "/Users/emirhan/IdeaProjects/Assignment3Cmpe250/src/songs.txt";//args[0];
-        String listsTextFilePath = "/Users/emirhan/IdeaProjects/Assignment3Cmpe250/src/add_large.txt";//args[1];
+        String songsTextFilePath = "/Users/emirhan/IdeaProjects/Assignment3Cmpe250/minheapmacheap/src/songs.txt";//args[0];
+        String listsTextFilePath = "/Users/emirhan/IdeaProjects/Assignment3Cmpe250/minheapmacheap/src/general_small.txt";//args[1];
 
 
 ////////////////////////////////    Songs File /////////////////////////////////////////////////////////////////////
@@ -48,9 +48,9 @@ public class MainReadFiles {
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         //Binary Heap
-        BinaryHeapForHearthacheCategory binaryHeapHearthache = new BinaryHeapForHearthacheCategory();
-        BinaryHeapForHearthacheCategory binaryHeapRoadtrip = new BinaryHeapForHearthacheCategory();
-        BinaryHeapForHearthacheCategory binaryHeapBlissful = new BinaryHeapForHearthacheCategory();
+        MaxHeapForHearthacheCategory binaryHeapHearthache = new MaxHeapForHearthacheCategory();
+        MaxHeapForRoadtripCategory binaryHeapRoadtrip = new MaxHeapForRoadtripCategory();
+        MaxHeapForBlissfulCategory binaryHeapBlissful = new MaxHeapForBlissfulCategory();
         //for (Song song : songsArray) {binaryHeapHearthache.insert(song);}
         //for (Song song : songsArray) {binaryHeapRoadtrip.insert(song);}
         //for (Song song : songsArray) {binaryHeapBlissful.insert(song);}
@@ -99,31 +99,28 @@ public class MainReadFiles {
 
 
 
-        System.out.println("Heartache heap: ");
+
         while(binaryHeapHearthache.size() > 0) {
             Song song = binaryHeapHearthache.pop();
             blend.addToHeartacheCheckConstraints(song);
-            System.out.print(" Pop top:  ");
-            System.out.println(song);}
-        System.out.println();
+            }
 
 
-        System.out.println("Roadtrip heap: ");
+
+
         while(binaryHeapRoadtrip.size() > 0) {
             Song song = binaryHeapRoadtrip.pop();
             blend.addToRoadtripCheckConstraints(song);
-            System.out.print(" Pop top:  ");
-            System.out.println(song);}
-        System.out.println();
+            }
 
 
-        System.out.println("Blissful heap: ");
+
+
         while(binaryHeapBlissful.size() > 0) {
             Song song = binaryHeapBlissful.pop();
             blend.addToBlissfulCheckConstraints(song);
-            System.out.print(" Pop top:  ");
-            System.out.println(song);}
-        System.out.println();
+            }
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 /////////////////////////////////////  Commands Addition-Removal-Ask  //////////////////////////////////////////////////////////////////////////////////////////////////
@@ -136,6 +133,18 @@ public class MainReadFiles {
                 Song song = songsArray[songId];
                 song.listId = Integer.parseInt(parts[2]);
                 blend.addNewSong(song);
+                blend.addNewSongRoadtrip(song);
+                blend.addNewSongBlissful(song);
+
+                //blend.blissfulCategoryBinaryHeap.print();
+                System.out.println(blend.addedToHearthache + " " + blend.addedToRoadtrip + " " + blend.addedToBlissful);
+                System.out.println(blend.addedToHearthacheWaiting + " " + blend.addedToRoadtripWaiting + " " + blend.addedToBlissfulWaiting);
+                blend.addedToHearthache=0;
+                blend.addedToRoadtrip=0;
+                blend.addedToBlissful=0;
+                blend.addedToHearthacheWaiting=0;
+                blend.addedToRoadtripWaiting=0;
+                blend.addedToBlissfulWaiting=0;
             }
 
             if(parts[0].equals("REM")){
@@ -143,6 +152,18 @@ public class MainReadFiles {
                 Song song = songsArray[songId];
                 int listId = Integer.parseInt(parts[2]);
                 blend.removeSong(song, listId);
+                System.out.println(blend.addedToHearthache + " " + blend.addedToRoadtrip + " " + blend.addedToBlissful);
+                System.out.println(blend.addedToHearthacheWaiting + " " + blend.addedToRoadtripWaiting + " " + blend.addedToBlissfulWaiting);
+                blend.addedToHearthache=0;
+                blend.addedToRoadtrip=0;
+                blend.addedToBlissful=0;
+                blend.addedToHearthacheWaiting=0;
+                blend.addedToRoadtripWaiting=0;
+                blend.addedToBlissfulWaiting=0;
+            }
+
+            if(parts[0].equals("ASK")){
+                blend.askCommand();
             }
 
         }
